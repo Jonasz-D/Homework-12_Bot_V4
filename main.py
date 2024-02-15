@@ -5,6 +5,7 @@ import pickle
 import pathlib
 from os import chdir, getcwd
 
+FILE_NAME = 'my_records.bin'
 def input_error(func):
     def inner(base_command, command, contacts):
         try:
@@ -305,10 +306,8 @@ def handler_command(base_command, command, contacts):
 
 def main():
     flag = True
-    file_name = 'my_records.bin'
-    print(str(pathlib.Path(file_name).is_file()))
-    if pathlib.Path(file_name).is_file():
-        contacts = read_from_file(file_name)
+    if pathlib.Path(FILE_NAME).is_file():
+        contacts = read_from_file(FILE_NAME)
     else:
         contacts = AdressBook()
     print(accepted_commands(OPERATIONS, contacts))
@@ -330,7 +329,7 @@ def main():
                 print(handler)
         
         elif isinstance(handler, bool):
-            write_to_file(file_name, contacts)
+            write_to_file(FILE_NAME, contacts)
             flag = handler
 
         else:
